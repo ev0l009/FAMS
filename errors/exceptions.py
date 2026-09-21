@@ -6,3 +6,9 @@ class InvalidAttributeError(AcademyError):
 
 class RegistrationError(AcademyError):
     pass
+
+class AcademyDBError(AcademyError):
+    pass
+
+class PlayerDoesNotExistError(AcademyError):
+    pass

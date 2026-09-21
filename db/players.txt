@@ -1,18 +1,20 @@
-'val' : {
-	'name': 'Val',
-	'age': 15,
-	'position': 'CDM',
-	'rating': 7.4,
-},
-'joe' : {
-	'name': 'Joe',
-	'age': 25,
-	'position': 'CM',
-	'rating': 5.3,
-},
-'mike' : {
-	'name': 'Mike',
-	'age': 26,
-	'position': 'ST',
-	'rating': 6.0,
-},
+{
+    "val": {
+        "name": "Val",
+        "age": 15,
+        "position": "CDM",
+        "rating": 7.4
+    },
+    "joe": {
+        "name": "Joe",
+        "age": 25,
+        "position": "CM",
+        "rating": 5.3
+    },
+    "mike": {
+        "name": "Mike",
+        "age": 26,
+        "position": "ST",
+        "rating": 6.0
+    }
+}
