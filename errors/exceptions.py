@@ -12,3 +12,6 @@ class AcademyDBError(AcademyError):
 
 class PlayerDoesNotExistError(AcademyError):
     pass
+
+class EmptyAcademyError(AcademyError):
+    pass

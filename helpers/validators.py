@@ -1,4 +1,5 @@
 from errors.exceptions import InvalidAttributeError
+from errors.exceptions import EmptyAcademyError
 
 MIN_RATING = 0.0
 MAX_RATING = 10.0
@@ -20,3 +21,7 @@ def validate_rating(value: int | float):
         raise InvalidAttributeError("Err: Rating must be an integer or a float")
     if value < MIN_RATING or value > MAX_RATING:
         raise InvalidAttributeError(f"Err: Rating out of range of {MIN_RATING}-{MAX_RATING}")
+
+def require_non_empty_academy(value:  int) -> None:
+    if value < 1:
+        raise EmptyAcademyError("Operation requires at least one player")

@@ -46,10 +46,25 @@ except AcademyDBError as err:
 try:
     academy = Academy("Val Academy")
     academy.load_academy_players()
-    player = academy.find_player("Val")
+    player = academy.find_player("Jinx")
+except InvalidAttributeError as err:
+    print(err)
+except PlayerDoesNotExistError as err:
+    print(err)
+# else:
+#     print(player)
+
+try:
+    academy = Academy("Val Academy")
+    academy.load_academy_players()
+    player = academy.remove_player("Jinx")
 except InvalidAttributeError as err:
     print(err)
 except PlayerDoesNotExistError as err:
     print(err)
 else:
-    print(player)
+    print("Player successfully unregistered.")
+finally:
+    academy.update_academy_players()
+    print(academy)
+

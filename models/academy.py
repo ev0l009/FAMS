@@ -1,4 +1,5 @@
 from helpers.validators import require_non_empty_str
+from helpers.validators import require_non_empty_academy
 
 from errors.exceptions import RegistrationError
 from errors.exceptions import AcademyDBError
@@ -65,3 +66,13 @@ class Academy:
         require_non_empty_str(name, "Player name")
         self.players.pop(self.find_player(name).name.lower())
         return self
+
+    def average_rating(self) -> float:
+        require_non_empty_academy(len(self.players))
+        total_rating: float = 0.0
+        for player in self.players:
+            total_rating += self.players[player].rating
+        return total_rating/len(self.players)
+
+    def top_player(self) -> "Player":
+        require_non_empty_academy(len(self.players))
