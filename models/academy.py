@@ -29,7 +29,7 @@ class Academy:
 
     def __init__(self, name: str) -> None:
         """
-        Creates an academy instance
+        Creates an academy instance. Necessary to run any other academy method
 
         Attributes:
             name (str): official name of the academy
@@ -60,7 +60,15 @@ class Academy:
         return len(self.players)
 
     def __str__(self) -> str:
-        """"""
+        """
+        Returns basic info about the academy in easy-to-read format
+
+        Example:
+            >>> print(academy)
+
+        Returns:
+            Basic easy-to-read info about the academy as strings 
+        """
         return (
             "=====================\n"
             f"      {self.name.title()}\n"
@@ -69,6 +77,21 @@ class Academy:
         )
 
     def add_player(self, player: "Player") -> Self:
+        """
+        Adds a player to the academy
+
+        Args:
+            player (Player): player object (see player module in models)
+        
+        Example:
+            >>> academy.add_player(Player("Val", 24, "CDM", 7.8))
+        
+        Returns:
+            Academy instance as self
+
+        Raises:
+            RegistrationError: Cannot add an already registered player.
+        """
         if player.name.lower() in self.players:
             raise RegistrationError("Player with same name is already registered")
         self.players[player.name.lower()] = player
