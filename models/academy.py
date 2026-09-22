@@ -1,27 +1,66 @@
+"""Contains the academy class and its methods"""
+
+# required to validate values before academy methods can execute
 from helpers.validators import require_non_empty_str
 from helpers.validators import require_non_empty_academy
 
+# required to raise relevant exceptions
 from errors.exceptions import RegistrationError
 from errors.exceptions import AcademyDBError
 from errors.exceptions import PlayerDoesNotExistError
 
+# required for type hinting
 from typing import Self
-
-import json
 from models.player import Player
 
-DB_PATH = "./db/players.txt"
+# required to write to and load from academy database
+import json
+
+# global academy database file path 
+DB_PATH = "./db/players.json"
 
 class Academy:
+    """
+    Creates an academy instance and contains academy methods.
+    
+    Attributes:
+        name (str): official name of the academy
+    """
+
     def __init__(self, name: str) -> None:
+        """
+        Creates an academy instance
+
+        Attributes:
+            name (str): official name of the academy
+        
+        Example:
+            >>> academy = Academy("My academy")
+
+        Returns:
+            None
+
+        Raises:
+            InvalidAttributeError: Academy name must be a non-empty string
+        """
         require_non_empty_str(name, "Academy name")
         self.name = name
         self.players: dict[str, "Player"] = {}
 
     def __len__(self) -> int:
+        """
+        Returns the number of registred players in the academy.
+
+        Example:
+            >>> print(len(academy))
+
+        Returns:
+            The count of registered players as an integer.
+        """
         return len(self.players)
 
     def __str__(self) -> str:
+        """"""
         return (
             "=====================\n"
             f"      {self.name.title()}\n"
@@ -76,3 +115,9 @@ class Academy:
 
     def top_player(self) -> "Player":
         require_non_empty_academy(len(self.players))
+        players: list[Player] = list(self.players.values())
+        current_top_player = players[0]
+        for player in players:
+            if player.rating > current_top_player.rating:
+                current_top_player.rating = player.rating
+        return current_top_player
