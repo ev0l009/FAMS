@@ -97,12 +97,12 @@ class Academy:
         self.players[player.name.lower()] = player
         return self
 
-    def update_academy_players(self) -> Self:
+    def save_academy_players(self) -> Self:
         """
         Stores player data in database.
 
         Example:
-            >>> academy.update_academy_players()
+            >>> academy.save_academy_players()
 
         Returns:
             Academy instance for method chaining.
@@ -121,12 +121,12 @@ class Academy:
             raise AcademyDBError("Err: Couldn't save academy players data.")
         return self
 
-    def save_academy_players(self) -> Self:
+    def load_academy_players(self) -> Self:
         """
         Loads player data from database.
 
         Example:
-            >>> academy.save_academy_players()
+            >>> academy.load_academy_players()
 
         Returns:
             Academy instance for method chaining.
@@ -227,3 +227,16 @@ class Academy:
             if player.rating > current_top_player.rating:
                 current_top_player.rating = player.rating
         return current_top_player
+
+    def clear_academy_records(self) -> Self:
+        """
+        Deletes all academy data.
+
+        Examples:
+            >>> academy.clear_academy_records()
+        
+        Returns:
+            Academy instance for method chaining.
+        """
+        self.players.clear()
+        return self

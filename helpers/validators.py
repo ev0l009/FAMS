@@ -27,11 +27,11 @@ def require_non_empty_str(value: str, field: str):
     if not value.strip() :
         raise InvalidAttributeError(f"Err: {field} cannot be empty.")
 
-def validate_age(value: int):
+def validate_age(value: str | int):
     """Checks whether age  is valid. 
 
     Args:
-        value (int): player's age.
+        value (str | int): player's age.
     
     Returns: 
         None
@@ -40,16 +40,18 @@ def validate_age(value: int):
         InvalidAttributeError: age must be an integer.
         InvalidAttributeError: age must be greater than or equal to 15.
     """
-    if type(value) is not int:
+    try:
+        value = int(value)
+    except ValueError:
         raise InvalidAttributeError("Err: Age must be an integer.")
     if value < 15:
         raise InvalidAttributeError("Err: Age cannot be less than 15.")
 
-def validate_rating(value: int | float):
+def validate_rating(value: str |int | float):
     """Checks whether rating value is valid
 
     Args:
-        value (int | float): player's rating
+        value (str |int | float): player's rating
 
     Returns:
         None
@@ -58,7 +60,9 @@ def validate_rating(value: int | float):
         InvalidAttributeError: rating must be an integer or a float
         InvalidAttributeError: rating is out of min-max range
     """
-    if type(value) is not int and type(value) is not float:
+    try:
+        value = float(value)
+    except ValueError:
         raise InvalidAttributeError("Err: Rating must be an integer or a float")
     if value < MIN_RATING or value > MAX_RATING:
         raise InvalidAttributeError(f"Err: Rating out of range of {MIN_RATING}-{MAX_RATING}")

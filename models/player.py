@@ -15,7 +15,7 @@ class Player:
         position (str): player's position
         rating (int | float): player's rating
     """
-    def __init__(self, name: str, age: int, position: str, rating: int | float) -> None:
+    def __init__(self, name: str, age: str | int, position: str, rating: str | int | float) -> None:
         """
         Initializes a player instance
 
@@ -23,7 +23,7 @@ class Player:
             name (str): player's name
             age (int): player's age
             position (str): player's position
-            rating (int | float): player's rating
+            rating (str | int | float): player's rating
 
         Example:
             >>> player = Player("Val", 34, "CF", 7.8)
