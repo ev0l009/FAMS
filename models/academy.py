@@ -87,7 +87,7 @@ class Academy:
             >>> academy.add_player(Player("Val", 24, "CDM", 7.8))
         
         Returns:
-            Academy instance as self
+            Academy instance for method chaining.
 
         Raises:
             RegistrationError: Cannot add an already registered player.
@@ -98,15 +98,42 @@ class Academy:
         return self
 
     def update_academy_players(self) -> Self:
-        with open(DB_PATH, "w") as file:
-            raw_data = {
-                key: player.__dict__
-                for key, player in self.players.items()
-            }
-            json.dump(raw_data, file, indent=4)
+        """
+        Stores player data in database.
+
+        Example:
+            >>> academy.update_academy_players()
+
+        Returns:
+            Academy instance for method chaining.
+
+        Raises:
+            AcademyDBError: Database file doesn't exist
+        """
+        try:
+            with open(DB_PATH, "w") as file:
+                raw_data = {
+                    key: player.__dict__
+                    for key, player in self.players.items()
+                }
+                json.dump(raw_data, file, indent=4)
+        except (FileNotFoundError, json.JSONDecodeError):
+            raise AcademyDBError("Err: Couldn't save academy players data.")
         return self
 
-    def load_academy_players(self) -> Self:
+    def save_academy_players(self) -> Self:
+        """
+        Loads player data from database.
+
+        Example:
+            >>> academy.save_academy_players()
+
+        Returns:
+            Academy instance for method chaining.
+
+        Raises:
+            AcademyDBError: Database file doesn't exist
+        """
         try:
             with open(DB_PATH, "r") as file:
                 raw_data = json.load(file)
@@ -119,17 +146,61 @@ class Academy:
         return self
 
     def find_player(self, name: str) -> "Player":
+        """
+        Searches for a player by name.
+
+        Args:
+            name (str): player name
+
+        Example:
+            >>> academy.find_player("Val")
+        
+        Returns:
+            A player object
+
+        Raises:
+            InvalidAttributeError - Player name must be a non-empty string
+            PlayerDoesNotExistError: Player does not exist in academy records.
+        """
         require_non_empty_str(name, "Player name")
         if name.lower() in self.players:
             return self.players[name.lower()]
         raise PlayerDoesNotExistError(f"Err: {name} is not a registered player.")
 
     def remove_player(self, name: str) -> Self:
+        """
+        Removes a player from the academy.
+
+        Args:
+            name (str): name of player to be removed
+
+        Example:
+            >>> academy.remove_player("Val")
+
+        Returns:
+            Academy instance for method chaining.
+
+        Raises:
+            InvalidAttributeError: Player name must be a non-empty string
+            PlayerDoesNotExistError: Player does not exist in academy records.
+        """
         require_non_empty_str(name, "Player name")
         self.players.pop(self.find_player(name).name.lower())
         return self
 
     def average_rating(self) -> float:
+        """
+        Returns the average rating of all registered players.
+
+        Examples:
+            >>> academy.average_rating()
+        
+        Returns:
+            Average rating of all players in the academy as float
+
+        Raises:
+            EmptyAcademyError: Academy needs to have at least one player.
+        """
         require_non_empty_academy(len(self.players))
         total_rating: float = 0.0
         for player in self.players:
@@ -137,6 +208,18 @@ class Academy:
         return total_rating/len(self.players)
 
     def top_player(self) -> "Player":
+        """
+        Returns the player with the highest rating.
+
+        Examples:
+            >>> academy.top_player()
+        
+        Returns:
+            Player with the highest rating in the academy as object
+
+        Raises:
+            EmptyAcademyError: Academy needs to have at least one player.
+        """
         require_non_empty_academy(len(self.players))
         players: list[Player] = list(self.players.values())
         current_top_player = players[0]

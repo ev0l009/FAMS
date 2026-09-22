@@ -38,7 +38,7 @@ except RegistrationError as err:
 
 try:
     academy = Academy("Val Academy")
-    academy.load_academy_players()
+    academy.save_academy_players()
 except AcademyDBError as err:
     print(err)
 # else:
@@ -46,7 +46,7 @@ except AcademyDBError as err:
 
 try:
     academy = Academy("Val Academy")
-    academy.load_academy_players()
+    academy.save_academy_players()
     player = academy.find_player("Jinx")
 except InvalidAttributeError as err:
     print(err)
@@ -57,7 +57,7 @@ except PlayerDoesNotExistError as err:
 
 try:
     academy = Academy("Val Academy")
-    academy.load_academy_players()
+    academy.save_academy_players()
     player = academy.remove_player("Jinx")
 except InvalidAttributeError as err:
     print(err)
@@ -71,7 +71,7 @@ except PlayerDoesNotExistError as err:
 
 try:
     academy = Academy("Val Academy")
-    academy.load_academy_players()
+    academy.save_academy_players()
     average_rating = academy.average_rating()
 except EmptyAcademyError as err:
     print(err)
@@ -80,7 +80,7 @@ except EmptyAcademyError as err:
 
 try:
     academy = Academy("Val Academy")
-    academy.load_academy_players()
+    academy.save_academy_players()
     top_player = academy.top_player()
 except EmptyAcademyError as err:
     print(err)
